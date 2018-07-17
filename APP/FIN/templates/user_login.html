@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+</head>
+<body>
+	<h4> LOGIN </h4>
+	<h4>{{ res_show_msg }}</h4>	
+	<a href=""> User Login </a>
+	<form method="post">
+		{% csrf_token %}		
+		{{login_res.name}}
+		USER NAME: <input type="text" name="username"><br>
+		PASSWORD: <input type="password" name="password"><br>		
+		<input type="submit" name="" value="LOGIN">
+	</form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+</head>
+<body>
+	<h1> This is home</h1>
+	<h4>{{ msg }}</h4>	
+	<a href=""> User Registration </a>
+	<form method="post">
+		{% csrf_token %}
+		NAME: <input type="text" name="name"><br>
+		USER NAME: <input type="text" name="username"><br>
+		PASSWORD: <input type="password" name="password"><br>
+		MAIL ID :<input type="text" name="mailid"><br>
+		<input type="submit" name="" value="CREATE USER">
+	</form>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+</head>
+<body>
+	<h5> EMPLOYEE SEARCH RESULTS</h5>
+	<h4>{{ name }}</h4>
+	<h4>{{ session }}</h4>
+	<form method="post">
+		{% csrf_token %}
+		Search: <input type="text" name="name">
+		<input type="submit" name="" value="SEARCH">
+	</form>
+	<a href="/fin_users/"> CREATE </a>
+	<table border=2>
+		<tr>
+			<th>ROW ID</th>
+			<th>NAME</th>
+			<th>SALARY</th>
+			<th>AGE</th>
+		</tr>
+		{% for row in data%}
+			<tr>
+				<td>{{row.id}}</td>
+				<td>{{ row.name }}</td>
+				<td>{{ row.sala }}</td>
+				<td>{{ row.age }}</td>
+				<td><a href="/emp_remove/{{ row.id}}/">DELETE</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

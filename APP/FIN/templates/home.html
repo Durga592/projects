@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+</head>
+<body>
+	<h1> This is home</h1>
+	<h4>{{ message }}</h4>
+	<form method="post">
+		Search: <input type="text" name="">
+		<input type="submit" name="" value="SEARCH">
+	</form>
+	<a href=""> CREATE </a>
+
+	<form method="post">
+		{% csrf_token %}
+		NAME: <input type="text" name="name"><br>
+		SALARY:<input type="text" name="sala"><br>
+		AGE:<input type="text" name="age"><br>
+		<input type="submit" name="" value="CREATE EMP">
+	</form>
+
+	<table border=2>
+		<tr>
+			<th>ROW ID</th>
+			<th>NAME</th>
+			<th>SALARY</th>
+			<th>AGE</th>
+		</tr>
+		{% for row in data%}
+			<tr>
+				<td>{{row.id}}</td>
+				<td>{{ row.name }}</td>
+				<td>{{ row.sala }}</td>
+				<td>{{ row.age }}</td>
+				<td><a href="/emp_remove/{{ row.id}}/">DELETE</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

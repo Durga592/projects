@@ -1,0 +1,5 @@
+create a project DataCenter, create an app
+
+in the if i send : http://127.0.0.1:8000/get_temp/
+
+the response of the above url is : 27.56.    This response should show in the browser.

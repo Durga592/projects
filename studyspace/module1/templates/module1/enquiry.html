@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Study Halls</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Study Space</h2>
+ 
+  <ul class="nav nav-tabs">
+    <!--<li class="active"><a data-toggle="tab" href="#home">Home</a></li>-->
+    <li class="active"><a data-toggle="tab" href="#menu1">Study Hall</a></li>
+    <li><a data-toggle="tab" href="#menu2">Enquiry</a></li>
+    <li><a data-toggle="tab" href="#menu3">Expenses</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <!--<div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>-->
+    <div id="menu1" class="tab-pane fade in active">
+      <h3>Study Halls</h3>
+      <p>This page is for Study Halls</p>
+      <div>{{ data }}</div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Enquiry</h3>
+      <p>This page is for Enquiries</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Expenses</h3>
+      <p>This page is for Expenses</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
