@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+
 </head>
 <body>
 
@@ -27,67 +36,204 @@
     </div>-->
     <div id="menu1" class="tab-pane fade in active">
       <h3>Study Halls</h3>
-      <p>This page is for Study Halls</p>      
-      <table border=2>
-          <tr>
-              <td>NAME</td>
-              <td>AREA</td>
-          </tr>  
-          {% for h in data %}
-          <tr>
-              <td>{{ h.name }}</td>
-              <td>{{ h.area }}</td>
-          </tr>
-          {% endfor %}
-      </table>
+      <p>This page is for Study Halls</p>   
+      <p>{{ hall_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_study_hall">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Hall Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="h_name" name="h_name" placeholder="Enter name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Hall Area:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="h_area" name="h_area" placeholder="Enter area">
+                </div>
+              </div>             
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">                  
+                  <button type="submit" class="btn btn-default">Submit</button>                  
+                </div>
+              </div>
+          </form> 
+      </div>   
+      <hr/>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="study_hall_data" style="width:100%">
+          <thead>
+            <tr>
+                <th>NAME</th>
+                <th>AREA</th>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for h in data %}
+            <tr>
+                <td>{{ h.name }}</td>
+                <td>{{ h.area }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Enquiry</h3>
       <p>This page is for Enquiry</p>
-      <table border=2>
-          <tr>
-              <td>ID</td>
-              <td>NAME</td>
-              <td>COURSE ID</td>
-              <td>STUDENT ID</td>
-          </tr>  
-          {% for en in enquiry_data %}
-          <tr>
-              <td>{{ en.id }}</td>
-              <td>{{ en.name }}</td>
-              <td>{{ en.course_id }}</td>
-              <td>{{ en.student_id }}</td>
-          </tr>
-          {% endfor %}
-      </table>
+      <p>{{ enquiry_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_enquiry">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">ENQUIRY NAME:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="e_enquiry" name="e_enquiry" placeholder="Enter enquiry name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">COURSE:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="e_course" name="e_course">
+                    {% for c in course_data %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>        
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STUDENT:</label>
+                <div class="col-sm-10">
+                  <select class="form-control" id="e_student" name="e_student">
+                    {% for s in student_data %}
+                    <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>     
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <!--<input type="submit" name="" value="Submit">-->
+                </div>
+              </div>
+          </form> 
+      </div>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="enquiry_datatable" style="width:100%">
+          <thead>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>COURSE ID</td>
+                <td>STUDENT ID</td>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for en in enquiry_data %}
+            <tr>
+                <td>{{ en.id }}</td>
+                <td>{{ en.name }}</td>
+                <td>{{ en.course_id }}</td>
+                <td>{{ en.student_id }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="menu3" class="tab-pane fade">
       <h3>Expenses</h3>
       <p>This page is for Expenses</p>
-      <table border=2>
-          <tr>
-              <td>ID</td>
-              <td>DATE</td>
-              <td>NAME</td>
-              <td>DESCRIPTION</td>
-              <td>VALUE</td>
-              <td>HALL ID</td>
-          </tr>  
-          {% for e in expense_data %}
-          <tr>
-              <td>{{ e.id }}</td>
-              <td>{{ e.date }}</td>
-              <td>{{ e.name }}</td>
-              <td>{{ e.dec }}</td>
-              <td>{{ e.value }}</td>
-              <td>{{ e.ehall_id }}</td>
-          </tr>
-          {% endfor %}
-      </table>
+      <p>{{ expense_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_expenses">
+              {% csrf_token %}              
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STUDY HALL:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="ex_hall" name="ex_hall">
+                    {% for sh in data %}
+                    <option value="{{ sh.id }}">{{ sh.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>        
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">DATE:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_date" name="ex_date" placeholder="Select date">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">NAME:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_name" name="ex_name" placeholder="Enter name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">DESCRIPTION:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_desc" name="ex_desc" placeholder="Enter description">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">VALUE:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_value" name="ex_value" placeholder="Enter value">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <!--<input type="submit" name="" value="Submit">-->
+                </div>
+              </div>
+          </form> 
+      </div>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="expense_datatable" style="width:100%">
+          <thead>
+            <tr>
+                <td>ID</td>
+                <td>DATE</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>VALUE</td>
+                <td>HALL ID</td>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for e in expense_data %}
+            <tr>
+                <td>{{ e.id }}</td>
+                <td>{{ e.date }}</td>
+                <td>{{ e.name }}</td>
+                <td>{{ e.dec }}</td>
+                <td>{{ e.value }}</td>
+                <td>{{ e.ehall_id }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#ex_date').datepicker({format: 'yyyy-mm-dd', autoclose: true});
+  });
+  $(document).ready(function() {
+    $('#study_hall_data, #enquiry_datatable, #expense_datatable').DataTable();
+} );
+</script>
 </body>
 </html>
