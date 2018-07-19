@@ -9,6 +9,8 @@ def get_index_data(request):
 	hall_msg 	=	''
 	enquiry_msg	=	''
 	expense_msg	=	''
+	course_msg	=	''
+	student_msg	=	''
 	if request.method == "POST":
 		print request.POST
 		########## CONDITION FOR STUDYHALL FORM ######################
@@ -42,6 +44,20 @@ def get_index_data(request):
 											)
 			expense_instance.save()
 			expense_msg			=	'Successfully expenses data inserted'
+		########## CONDITION FOR COURSE FORM ########################
+		if request.POST['tab_type']	==	'type_course':
+			get_course_instance	=	Ecourse(name = request.POST['c_name'])
+			get_course_instance.save()
+			course_msg			=	'Successfully course created'
+		########## CONDITION FOR STUDENT FORM #######################
+		if request.POST['tab_type']	==	'type_student':
+			get_student_instance	=	Estudent(name = request.POST['s_name'], 
+													address = request.POST['s_addrs'], 
+													phone = request.POST['s_phone'], 
+													email = request.POST['s_email']
+												)
+			get_student_instance.save()
+			student_msg				=	'Successfully student created'
 
 	get_hall	=	Ehall.objects.all()
 	get_expense	=	Eexpenses.objects.all()
@@ -55,6 +71,8 @@ def get_index_data(request):
 												"course_data":get_course,
 												"student_data":get_student,
 												"enquiry_suc_msg":enquiry_msg,
-												"expense_suc_msg":expense_msg
+												"expense_suc_msg":expense_msg,
+												"course_suc_msg":course_msg,
+												"student_suc_msg":student_msg
 											}
 				)
