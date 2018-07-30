@@ -39,23 +39,38 @@
     <div id="menu1" class="tab-pane fade in active">
       <h3>Study Halls</h3>
       <p>This page is for Study Halls</p>   
-      <p>{{ hall_suc_msg }}</p>
+      <p style="color: green;">{{ hall_suc_msg }}</p>
       <div class="row">
-           <form class="form-horizontal" method="post">
+           <form class="form-horizontal" method="post" enctype="multipart/form-data">
               <input type="hidden" name="tab_type" value="type_study_hall">
               {% csrf_token %}
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Hall Name:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="h_name" name="h_name" placeholder="Enter name">
+                  <input type="text" value="{{ get_edit_hall_data.name }}" class="form-control" id="h_name" name="h_name" placeholder="Enter name">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="pwd">Hall Area:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="h_area" name="h_area" placeholder="Enter area">
+                  <input type="text" value="{{ get_edit_hall_data.area }}"" class="form-control" id="h_area" name="h_area" placeholder="Enter area">
                 </div>
-              </div>             
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Upload:</label>
+                <div class="col-sm-10">                  
+                  <input type="file" name="pic" accept="image/*">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STATUS:{{ get_edit_hall_data.hall_status }}</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="e_status" name="e_status">                    
+                    <option value="1" {% if get_edit_hall_data.hall_status == '1' or get_edit_hall_data.hall_status == 1 %} selected {% endif %}>Active</option>
+                    <option value="0" {% if get_edit_hall_data.hall_status == '0' or get_edit_hall_data.hall_status == 0 %} selected {% endif %}>Deactive</option>
+                  </select>
+                </div>
+              </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">                  
                   <button type="submit" class="btn btn-default">Submit</button>                  
@@ -71,6 +86,8 @@
                 <th>ID</th>
                 <th>NAME</th>
                 <th>AREA</th>
+                <th>STATUS</th>
+                <th>OPERATIONS</th>                
             </tr>  
           </thead>
           <tbody>
@@ -79,6 +96,17 @@
                 <td>{{ h.id }}</td>
                 <td>{{ h.name }}</td>
                 <td>{{ h.area }}</td>
+                <td>
+                  {%  if h.hall_status == 1 %}
+                    <a>Activated</a> 
+                  {% else %}
+                    <a>Deactivated</a>
+                  {% endif %}                  
+                </td>
+                <td>
+                  <a href="/index/hall/{{ h.id }}/">UPDATE</a> |                   
+                  <a href="/studyhall_delete/hall/{{ h.id }}/">DELETE</a>                  
+                </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -89,7 +117,7 @@
     <div id="menu2" class="tab-pane fade">
       <h3>Enquiry</h3>
       <p>This page is for Enquiry</p>
-      <p>{{ enquiry_suc_msg }}</p>
+      <p style="color:green;">{{ enquiry_suc_msg }}</p>      
       <div class="row">
            <form class="form-horizontal" method="post">
               <input type="hidden" name="tab_type" value="type_enquiry">
@@ -97,7 +125,7 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">ENQUIRY NAME:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="e_enquiry" name="e_enquiry" placeholder="Enter enquiry name">
+                  <input type="text" value="{{ get_edit_Eexpenses_data.name }}" class="form-control" id="e_enquiry" name="e_enquiry" placeholder="Enter enquiry name">
                 </div>
               </div>
               <div class="form-group">
@@ -105,7 +133,7 @@
                 <div class="col-sm-10">                  
                   <select class="form-control" id="e_course" name="e_course">
                     {% for c in course_data %}
-                    <option value="{{ c.id }}">{{ c.name }}</option>
+                    <option value="{{ c.id }}" {% ifequal get_edit_Eexpenses_data.course_id c.id %} selected {% endifequal %}>{{ c.name }}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -119,7 +147,16 @@
                     {% endfor %}
                   </select>
                 </div>
-              </div>     
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STATUS:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="en_status" name="en_status">                    
+                    <option value="1" {% if get_edit_Eexpenses_data.enquiry_status == '1' or get_edit_Eexpenses_data.enquiry_status == 1 %} selected {% endif %}>Active</option>
+                    <option value="0" {% if get_edit_Eexpenses_data.enquiry_status == '0' or get_edit_Eexpenses_data.enquiry_status == 0 %} selected {% endif %}>Deactive</option>
+                  </select>
+                </div>
+              </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                   <button type="submit" class="btn btn-default">Submit</button>
@@ -136,6 +173,8 @@
                 <td>NAME</td>
                 <td>COURSE ID</td>
                 <td>STUDENT ID</td>
+                <td>STATUS</td>
+                <td>OPERATIONS</td>
             </tr>  
           </thead>
           <tbody>
@@ -145,6 +184,17 @@
                 <td>{{ en.name }}</td>
                 <td>{{ en.course_id }}</td>
                 <td>{{ en.student_id }}</td>
+                 <td>
+                  {%  if en.enquiry_status == 1 %}
+                    <a>Activated</a> 
+                  {% else %}
+                    <a>Deactivated</a>
+                  {% endif %}                  
+                </td>
+                <td>
+                  <a href="/index/enquiry/{{ en.id }}/">UPDATE</a> |                   
+                  <a>DELETE</a>                  
+                </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -240,7 +290,7 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Course Name:</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="c_name" name="c_name" placeholder="Enter courname">
+                  <input type="text" class="form-control" id="c_name" name="c_name" placeholder="Enter coursename">
                 </div>
               </div>              
               <div class="form-group">

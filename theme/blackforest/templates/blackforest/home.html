@@ -1,0 +1,27 @@
+{% extends "blackforest/base.html" %}
+{% block title %}
+:<title>Files list</title>
+{% endblock %}
+{% block pageheadeer %}
+    <h1 class="page-header">Files</h1>
+{% endblock %}
+{% block content %}
+<div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <div class="panel panel-default">                    
+                    <div class="panel-body">                      
+                      <ul>
+                        {% for obj in documents %}
+                          <li>
+                            <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                            <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Study Halls</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Study Space</h2>
+ 
+  <ul class="nav nav-tabs">
+    <!--<li class="active"><a data-toggle="tab" href="#home">Home</a></li>-->
+    <li class="active"><a data-toggle="tab" href="#menu1">Study Hall</a></li>
+    <li><a data-toggle="tab" href="#menu2">Enquiry</a></li>
+    <li><a data-toggle="tab" href="#menu3">Expenses</a></li>
+    <li><a data-toggle="tab" href="#menu4">Courses</a></li>
+    <li><a data-toggle="tab" href="#menu5">Students</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <!--<div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>-->
+    <div id="menu1" class="tab-pane fade in active">
+      <h3>Study Halls</h3>
+      <p>This page is for Study Halls</p>   
+      <p style="color: green;">{{ hall_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_study_hall">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Hall Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" value="{{ get_edit_hall_data.name }}" class="form-control" id="h_name" name="h_name" placeholder="Enter name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Hall Area:</label>
+                <div class="col-sm-10">
+                  <input type="text" value="{{ get_edit_hall_data.area }}"" class="form-control" id="h_area" name="h_area" placeholder="Enter area">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STATUS:{{ get_edit_hall_data.hall_status }}</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="e_status" name="e_status">                    
+                    <option value="1" {% if get_edit_hall_data.hall_status == '1' or get_edit_hall_data.hall_status == 1 %} selected {% endif %}>Active</option>
+                    <option value="0" {% if get_edit_hall_data.hall_status == '0' or get_edit_hall_data.hall_status == 0 %} selected {% endif %}>Deactive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">                  
+                  <button type="submit" class="btn btn-default">Submit</button>                  
+                </div>
+              </div>
+          </form> 
+      </div>   
+      <hr/>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="study_hall_data" style="width:100%">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>AREA</th>
+                <th>STATUS</th>
+                <th>OPERATIONS</th>                
+            </tr>  
+          </thead>
+          <tbody>
+            {% for h in data %}
+            <tr>
+                <td>{{ h.id }}</td>
+                <td>{{ h.name }}</td>
+                <td>{{ h.area }}</td>
+                <td>
+                  {%  if h.hall_status == 1 %}
+                    <a>Activated</a> 
+                  {% else %}
+                    <a>Deactivated</a>
+                  {% endif %}                  
+                </td>
+                <td>
+                  <a href="/index/hall/{{ h.id }}/">UPDATE</a> |                   
+                  <a href="/studyhall_delete/hall/{{ h.id }}/">DELETE</a>                  
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Enquiry</h3>
+      <p>This page is for Enquiry</p>
+      <p style="color:green;">{{ enquiry_suc_msg }}</p>      
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_enquiry">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">ENQUIRY NAME:</label>
+                <div class="col-sm-10">
+                  <input type="text" value="{{ get_edit_Eexpenses_data.name }}" class="form-control" id="e_enquiry" name="e_enquiry" placeholder="Enter enquiry name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">COURSE:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="e_course" name="e_course">
+                    {% for c in course_data %}
+                    <option value="{{ c.id }}" {% ifequal get_edit_Eexpenses_data.course_id c.id %} selected {% endifequal %}>{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>        
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STUDENT:</label>
+                <div class="col-sm-10">
+                  <select class="form-control" id="e_student" name="e_student">
+                    {% for s in student_data %}
+                    <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STATUS:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="en_status" name="en_status">                    
+                    <option value="1" {% if get_edit_Eexpenses_data.enquiry_status == '1' or get_edit_Eexpenses_data.enquiry_status == 1 %} selected {% endif %}>Active</option>
+                    <option value="0" {% if get_edit_Eexpenses_data.enquiry_status == '0' or get_edit_Eexpenses_data.enquiry_status == 0 %} selected {% endif %}>Deactive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <!--<input type="submit" name="" value="Submit">-->
+                </div>
+              </div>
+          </form> 
+      </div>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="enquiry_datatable" style="width:100%">
+          <thead>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>COURSE ID</td>
+                <td>STUDENT ID</td>
+                <td>STATUS</td>
+                <td>OPERATIONS</td>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for en in enquiry_data %}
+            <tr>
+                <td>{{ en.id }}</td>
+                <td>{{ en.name }}</td>
+                <td>{{ en.course_id }}</td>
+                <td>{{ en.student_id }}</td>
+                 <td>
+                  {%  if en.enquiry_status == 1 %}
+                    <a>Activated</a> 
+                  {% else %}
+                    <a>Deactivated</a>
+                  {% endif %}                  
+                </td>
+                <td>
+                  <a href="/index/enquiry/{{ en.id }}/">UPDATE</a> |                   
+                  <a>DELETE</a>                  
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Expenses</h3>
+      <p>This page is for Expenses</p>
+      <p>{{ expense_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_expenses">
+              {% csrf_token %}              
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">STUDY HALL:</label>
+                <div class="col-sm-10">                  
+                  <select class="form-control" id="ex_hall" name="ex_hall">
+                    {% for sh in data %}
+                    <option value="{{ sh.id }}">{{ sh.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>        
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">DATE:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_date" name="ex_date" placeholder="Select date">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">NAME:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_name" name="ex_name" placeholder="Enter name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">DESCRIPTION:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_desc" name="ex_desc" placeholder="Enter description">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">VALUE:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ex_value" name="ex_value" placeholder="Enter value">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <!--<input type="submit" name="" value="Submit">-->
+                </div>
+              </div>
+          </form> 
+      </div>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="expense_datatable" style="width:100%">
+          <thead>
+            <tr>
+                <td>ID</td>
+                <td>DATE</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>VALUE</td>
+                <td>HALL ID</td>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for e in expense_data %}
+            <tr>
+                <td>{{ e.id }}</td>
+                <td>{{ e.date }}</td>
+                <td>{{ e.name }}</td>
+                <td>{{ e.dec }}</td>
+                <td>{{ e.value }}</td>
+                <td>{{ e.ehall_id }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="menu4" class="tab-pane fade">
+      <h3>Courses</h3>
+      <p>This page is for Courses</p>   
+      <p>{{ course_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_course">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Course Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="c_name" name="c_name" placeholder="Enter coursename">
+                </div>
+              </div>              
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">                  
+                  <button type="submit" class="btn btn-default">Submit</button>                  
+                </div>
+              </div>
+          </form> 
+      </div>   
+      <hr/>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="study_student_data" style="width:100%">
+          <thead>
+            <tr>
+                <th>NAME</th>
+                <th>AREA</th>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for cd in course_data %}
+            <tr>
+                <td>{{ cd.id }}</td>
+                <td>{{ cd.name }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="menu5" class="tab-pane fade">
+      <h3>Students</h3>
+      <p>This page is for Students</p>   
+      <p>{{ student_suc_msg }}</p>
+      <div class="row">
+           <form class="form-horizontal" method="post">
+              <input type="hidden" name="tab_type" value="type_student">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Student Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="s_name" name="s_name" placeholder="Enter student name">
+                </div>
+              </div> 
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Address:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="s_addrs" name="s_addrs" placeholder="Enter student address">
+                </div>
+              </div> 
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Phone:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="s_phone" name="s_phone" placeholder="Enter student phone number">
+                </div>
+              </div> 
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="s_email" name="s_email" placeholder="Enter student email">
+                </div>
+              </div>              
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">                  
+                  <button type="submit" class="btn btn-default">Submit</button>                  
+                </div>
+              </div>
+          </form> 
+      </div>   
+      <hr/>
+      <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered" id="study_course_data" style="width:100%">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ADDRESS</th>
+                <th>PHONE</th>
+                <th>ENMAIL</th>
+            </tr>  
+          </thead>
+          <tbody>
+            {% for sd in student_data %}
+            <tr>
+                <td>{{ sd.id }}</td>
+                <td>{{ sd.name }}</td>
+                <td>{{ sd.address }}</td>
+                <td>{{ sd.phone }}</td>
+                <td>{{ sd.email }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#ex_date').datepicker({format: 'yyyy-mm-dd', autoclose: true});
+  });
+  $(document).ready(function() {
+    $('#study_hall_data, #enquiry_datatable, #expense_datatable, #study_student_data, #study_course_data').DataTable();
+} );
+</script>
+</body>
+</html>

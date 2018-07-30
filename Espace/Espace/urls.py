@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from app.views import get_index_data
+from app.views import get_index_data, hall_update, hall_delete, myview, testurl
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', get_index_data),
+    url(r'^getmyview/', myview),
+    #url(r'^index/(?P<id>\d+)/(?P<type>\d+)/$', get_index_data),
+    #url(r'^index/', get_index_data, kwargs={'decision': "(?P<id>d+)"}, name='group_judge_request_cut'),
+    url(r'^index/(?P<title>\w+)/((?P<unique_id>\w+)/)?$', get_index_data),   #WORKING FINE...
+    #url(r'^index/(?P<name>\w+)/((?P<id>\w+)/)?$', get_index_data),   #WORKING FINE...
+    #url(r'^index/(?P<first_name>[a-zA-Z]+)/(?P<last_name>[a-zA-Z]+)(?:/(?P<title>[a-zA-Z]+))?/$', get_index_data),
+    #url(r'^index/(?P<type>[a-zA-Z0-9]+)(?:/(?P<id>[0-9]+))?/$', get_index_data),        
+    url(r'^studyhall_update/([0-9]+)/', hall_update),
+    url(r'^studyhall_delete/([0-9]+)/', hall_delete),
+    url(r'^get_testurl/', testurl),
 ]

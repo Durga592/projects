@@ -1,0 +1,12 @@
+xxfin_taebs_insert_pkg.ar_receipt_apply_insert_prc 
+(
+      p_receipt_id          IN NUMBER,
+      p_receipt_number      IN VARCHAR2 DEFAULT NULL ,
+      p_ta_receipt_number   IN VARCHAR2 DEFAULT NULL ,
+      p_mode_of_receipt     IN VARCHAR2 DEFAULT NULL ,
+      p_source_on           IN VARCHAR2 DEFAULT NULL ,
+      p_reference_number    IN VARCHAR2 DEFAULT NULL ,
+      p_line_amount         IN VARCHAR2 DEFAULT NULL ,
+      p_reference_amount    IN VARCHAR2 DEFAULT NULL ,
+      p_ebs_receipt_number  IN VARCHAR2 DEFAULT NULL 
+   );

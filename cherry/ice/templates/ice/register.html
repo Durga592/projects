@@ -1,0 +1,42 @@
+{% extends "ice/base.html" %}
+{% block title %}
+:<title>User Registration</title>
+{% endblock %}
+{% block pageheadeer %}
+    <h1 class="page-header">New User Creation</h1>
+{% endblock %}
+{% block content %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-2">
+                        <div class="panel panel-default">
+                            <p>{{ suc_msg }}</p>
+                            <div class="panel-body">
+                                <form role="form" method = "post" autocomplete = "off">
+                                    {% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Username" name="username" type="username" autofocus>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                            </label>
+                                        </div>
+                                        <!-- Change this to a button or input when using this as a form -->
+                                        <!--<a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>-->
+                                        <button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
