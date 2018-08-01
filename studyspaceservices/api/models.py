@@ -53,3 +53,6 @@ class Eenquiry(models.Model):
 		db_table	=	'e_enquiry'
 	def __str__(self):
 		return "%s | %s | %s"%(self.name, self.student, self.course)
+class New(models.Model):
+	ehall 	=	models.ForeignKey(Ehall)	
+	name 	=	models.CharField(max_length=250)

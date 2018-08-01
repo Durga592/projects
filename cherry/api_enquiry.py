@@ -8,7 +8,8 @@ en2		=	base_url+"e_enquiry/2/"
 en3		=	base_url+"e_enquiry/1/"
 en4		=	base_url+"e_enquiry/1/"
 print 'begin 11111111111111111111111111111111111'
-resp1		=	requests.post(en1, json={"name":"Course", "course_id":"1", "student_id":"2"})
+#resp1		=	requests.post(en1, json={"name":"Course", "course_id":"1", "student_id":"2"})
+resp1		=	requests.post(en1, json={"name":"Course", "course":1, "student":2})
 print resp1
 print resp1.text
 print resp1.status_code

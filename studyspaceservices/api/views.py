@@ -5,8 +5,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from serializers import ExpSerializer, StudentSerailizer
-from api.models import Ehall, Estudent, Ecourse, Eenquiry, Eexpenses
+from serializers import ExpSerializer, StudentSerailizer, ExpensesSerializer, EnqurySerializer
+from api.models import Ehall, Estudent, Ecourse, Eenquiry, Eexpenses, New
 import datetime
 # Create your views here.
 class StudyHallView(APIView):
@@ -161,11 +161,26 @@ class CourseDetailsView(APIView):
 ############ ENQUIRY ##############################################################
 class EnquiryView(APIView):
 	def post(slef, request):
-		try:
+		'''try:
 			print request.data
 			e_data	=	Eenquiry(**request.data)
 			e_data.save()
 			return Response("Enquiry created successfully", status.HTTP_201_CREATED)
+		except Exception as err:
+			return Response(err.message, status.HTTP_400_BAD_REQUEST)
+		'''
+		try:
+			print request.data
+			e_data	=	EnqurySerializer(data = request.data)
+			print '1111111111111111111111111111111111111111111111'
+			print e_data
+			print e_data.is_valid()
+			print '1111111111111111111111111111111111111111111111'
+			if e_data.is_valid():
+				e_data.save()
+				return Response("Enquiry created successfully", status.HTTP_201_CREATED)
+			else:
+				return Response("IS NOT VALID", status.HTTP_500_INTERNAL_SERVER_ERROR)
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class EnquiryDetailsView(APIView):
@@ -244,7 +259,7 @@ class ExpenseDetailsView(APIView):
 class ExpenseSerializerView(APIView):
 	def post(self, request):
 		try:			
-			expense_data 	=	ExpSerializer(data = request.data)
+			expense_data 	=	ExpensesSerializer(data = request.data)
 			print expense_data
 			print '======================================'			
 			#print expense_data.is_valid()
