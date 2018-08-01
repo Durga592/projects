@@ -5,6 +5,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from serializers import ExpSerializer
 from api.models import Ehall, Estudent, Ecourse, Eenquiry, Eexpenses
 import datetime
 # Create your views here.
@@ -195,9 +196,13 @@ class EnquiryDetailsView(APIView):
 class ExpenseView(APIView):
 	def post(self, request):
 		try:
-			ex_data		=	Eexpenses(**request.data)
-			ex_data.save()
-			return Response("Expense successfully created", status.HTTP_201_CREATED)
+			#ex_data		=	Eexpenses(**request.data)
+			ex_data		=	ExpSerializer(data = request.data)
+			if ex_data.is_valid():
+				ex_data.save()
+				return Response("Expense successfully created", status.HTTP_201_CREATED)
+			else:
+				return Response(err.message, status.HTTP_400_BAD_REQUEST)
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class ExpenseDetailsView(APIView):

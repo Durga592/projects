@@ -9,7 +9,8 @@ ex2		=	base_url+"e_expense/2/"
 ex3		=	base_url+"e_expense/1/"
 ex4		=	base_url+"e_expense/1/"
 print 'begin 11111111111111111111111111111111111'
-resp1		=	requests.post(ex1, json={"date":'2018-07-31 10:10:10.900000', "name":"milk", "dec":"fine", "value":"250", "ehall_id":"2"})
+#resp1		=	requests.post(ex1, json={"date":'2018-08-01 10:10:10.900000', "name":"milk", "dec":"fine", "value":"250", "ehall_id":"2"})
+resp1		=	requests.post(ex1, json={"name":"milk", "dec":"fine", "value":"250", "ehall_id":2})
 print resp1
 print resp1.text
 print resp1.status_code
