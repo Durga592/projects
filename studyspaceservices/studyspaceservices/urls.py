@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from api.views import StudyHallView, EhallView, EhallDetailView, EhallDetailsView, StudentView, StudentDetailsView, \
-CourseView, CourseDetailsView, EnquiryView, EnquiryDetailsView, ExpenseView, ExpenseDetailsView
+CourseView, CourseDetailsView, EnquiryView, EnquiryDetailsView, ExpenseView, ExpenseDetailsView, ExpenseSerializerView
 from rest_framework.views import APIView
 
 urlpatterns = [
@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^e_enquiry/([0-9]+)/$', EnquiryDetailsView.as_view()),
     url(r'^e_expense/$', ExpenseView.as_view()),
     url(r'^e_expense/([0-9]+)/$', ExpenseDetailsView.as_view()),
+    url(r'^e_expense_serializer/$', ExpenseSerializerView.as_view()),
 ]

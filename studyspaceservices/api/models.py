@@ -15,9 +15,9 @@ class Ehall(models.Model):
 
 class Eexpenses(models.Model):
 	ehall 	=	models.ForeignKey(Ehall)
-	date 	=	models.DateTimeField()
+	date 	=	models.DateTimeField(blank=True, null=True)
 	name 	=	models.CharField(max_length=250)
-	dec 	=	models.TextField()
+	dec 	=	models.TextField(blank=True, null=True)
 	value 	=	models.IntegerField()
 	exp_status	=	models.IntegerField(default = 1, help_text = " 1 - active, 0 - de_active")
 	class Meta:

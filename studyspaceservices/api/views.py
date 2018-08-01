@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from serializers import ExpSerializer
+from serializers import ExpSerializer, StudentSerailizer
 from api.models import Ehall, Estudent, Ecourse, Eenquiry, Eexpenses
 import datetime
 # Create your views here.
@@ -82,10 +82,18 @@ class EhallDetailsView(APIView):
 class StudentView(APIView):
 	def post(self, request):
 		try:
-			s_data	=	Estudent(**request.data)
-			s_data.save()
-			return Response("Successfully student created", status.HTTP_200_OK)
+			#s_data	=	Estudent(**request.data)
+			s_data 	=	StudentSerailizer(data = request.data)
+			print s_data
+			if s_data.is_valid():		
+				print '11111111111111111111111111111111'		
+				s_data.save()
+				return Response("Successfully student created11", status.HTTP_200_OK)
+			else:
+				print '2222222222222222222222222222222'
+				return Response("Creation Failed", status.HTTP_400_BAD_REQUEST)
 		except Exception as err:
+			print '33333333333333333333333333333333333'
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class StudentDetailsView(APIView):
 	def get(self, request, id):
@@ -196,15 +204,12 @@ class EnquiryDetailsView(APIView):
 class ExpenseView(APIView):
 	def post(self, request):
 		try:
-			#ex_data		=	Eexpenses(**request.data)
-			ex_data		=	ExpSerializer(data = request.data)
-			if ex_data.is_valid():
-				ex_data.save()
-				return Response("Expense successfully created", status.HTTP_201_CREATED)
-			else:
-				return Response(err.message, status.HTTP_400_BAD_REQUEST)
+			ex_data		=	Eexpenses(**request.data)			
+			ex_data.save()
+			print "========== OK ====================="
+			return Response("Expense successfully created", status.HTTP_201_CREATED)						
 		except Exception as err:
-			return Response(err.message, status.HTTP_400_BAD_REQUEST)
+			return Response(err.message, status.HTTP_500_INTERNAL_SERVER_ERROR)
 class ExpenseDetailsView(APIView):
 	def get(self, request, id):
 		try:
@@ -234,3 +239,26 @@ class ExpenseDetailsView(APIView):
 			return Response("Expense successfully deleted", status.HTTP_200_OK)
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
+
+####################  EXPENSE SERIALIZER ################################################
+class ExpenseSerializerView(APIView):
+	def post(self, request):
+		try:			
+			expense_data 	=	ExpSerializer(data = request.data)
+			print expense_data
+			print '======================================'			
+			#print expense_data.is_valid()
+			print '======================================'			
+			print '======================================'
+			print expense_data.is_valid()
+			print '======================================'
+			if expense_data.is_valid():
+				print '11111111111111'
+				expense_data.save()
+				return Response("Expense successfully created", status.HTTP_201_CREATED)
+			else:
+				print '2222222222222222'
+				return Response("Expense details are not valid", status.HTTP_400_BAD_REQUEST)
+		except Exception as err:
+			print '333333333333333333333333'
+			return Response(err.message, status.HTTP_500_INTERNAL_SERVER_ERROR)
