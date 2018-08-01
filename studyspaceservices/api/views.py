@@ -33,11 +33,16 @@ class EhallDetailView(APIView):
 			return Response("Updated successfully")
 		except Exception as err:
 			return Response(err.message)
+############## AJAX CALLING ######################################################################
 ############## FOR STUDY HALL OPERATIONS ##########################################################
 class EhallView(APIView):
 	def post(self, request):
 		try:
 			print request.data
+			print 'BEGIN 111111111111111111111111111111111..........'
+			print request.data.get('name')
+			print request.data.get('area')
+			print 'BEGIN 111111111111111111111111111111111..........'
 			hall_data	=	Ehall(**request.data)
 			hall_data.save()
 			return Response("Hall successfully created...", status.HTTP_201_CREATED)
@@ -64,7 +69,7 @@ class EhallDetailsView(APIView):
 			return Response("Deleted successfully", status.HTTP_200_OK)
 		except Exception as err:
 			return Response(err.message, status.HTTP_304_NOT_MODIFIED)
-	def post(self, request, id):
+	def get(self, request, id):
 		try:
 			data 	=	Ehall.objects.get(pk = id)
 			h_data 	=	{"name":data.name, "area":data.area}
@@ -82,7 +87,7 @@ class StudentView(APIView):
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class StudentDetailsView(APIView):
-	def post(self, request, id):
+	def get(self, request, id):
 		try:
 			s_data		=	Estudent.objects.get(pk = id)
 			get_data	=	{"name":s_data.name, "address":s_data.address, "phone":s_data.phone, "email":s_data.email}
@@ -119,7 +124,7 @@ class CourseView(APIView):
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class CourseDetailsView(APIView):
-	def post(self, request, id):
+	def get(self, request, id):
 		print id
 		try:
 			c_data	=	Ecourse.objects.get(pk = id)
@@ -155,7 +160,7 @@ class EnquiryView(APIView):
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class EnquiryDetailsView(APIView):
-	def post(self, request, id):
+	def get(self, request, id):
 		try:
 			e_data	=	Eenquiry.objects.get(pk = id)
 			data 	=	{"name":e_data.name, "course_id":e_data.course_id, "student_id":e_data.student_id}
@@ -196,7 +201,7 @@ class ExpenseView(APIView):
 		except Exception as err:
 			return Response(err.message, status.HTTP_400_BAD_REQUEST)
 class ExpenseDetailsView(APIView):
-	def post(self, request, id):
+	def get(self, request, id):
 		try:
 			ex_data		=	Eexpenses.objects.get(pk = id)			
 			get_data	=	{"date":ex_data.date, "name":ex_data.name, "dec":ex_data.dec, "value":ex_data.value, "ehall_id":ex_data.ehall_id}

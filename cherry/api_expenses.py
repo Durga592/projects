@@ -16,7 +16,7 @@ print resp1.status_code
 print 'end 1111111111111111111111111111111111111'
 
 print 'begin 22222222222222222222222222222222222'
-resp2		=	requests.post(ex2)
+resp2		=	requests.get(ex2)
 print resp2
 print resp2.text
 print resp2.status_code

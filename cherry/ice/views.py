@@ -172,5 +172,17 @@ def get_studyhall(request):
 
 def api_call(request):
 	url 	=	'http://127.0.0.1:8001/e_hall/'
-	res 	=	requests.get(url)
+	print request.POST
+	res 	=	requests.post(url)
+	print res
 	return HttpResponse(res)
+
+def api_ajax_call(request):
+	url 	=	'http://127.0.0.1:8001/e_hall/'
+	print request.POST
+	res 	=	requests.post(url, json={"name":request.POST['name'], "area":request.POST['area']})
+	print 'RESPONSE BEGIN --------------------'
+	print res
+	print res.text
+	print 'RESPONSE ENDING --------------------'
+	return HttpResponse(res.text)

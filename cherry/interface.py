@@ -7,7 +7,7 @@ consume_url			=	base_url+"e_hall/2/"
 consume_url_one		=	base_url+"e_hall/"
 consume_url_two		=	base_url+"e_hall/2/"
 consume_url_three	=	base_url+"e_hall/2/"
-resp		=	requests.post(consume_url)
+resp		=	requests.get(consume_url)
 resp1		=	requests.post(consume_url_one, json={"name":"Ramprakash", "area":"Chennai"})
 resp2		=	requests.put(consume_url_two, json={"name":"Mithra", "area":"Hitech"})
 resp3 		=	requests.delete(consume_url_three)

@@ -40,6 +40,7 @@
               <div class="form-group">                
                   <button type="submit" class="btn btn-default">Submit</button>
                   <button type="button" class="btn btn-default testing">testing</button>
+                  <button type="button" class="btn btn-default testing_new">testing1</button>
               </div>
           </form> 
         </div>
@@ -56,14 +57,14 @@ $(document).on('click','.testing',function(e)
 {  
   alert('okkk');
    var reference = 'test';   
-   var name = 'honey';
-   var area = 'Banjarahills';
+   var name = 'honey11';
+   var area = 'Banjarahills11';
    if(reference != '')
    {
           $.ajax({
             url: 'http://127.0.0.1:8001/e_hall/',
             type: 'POST',
-            data: { 'name':name, 'area' : area},
+            data: { name:name, area : area},
             async: true,
             dataType: 'json',
             success: function(result) 
@@ -73,7 +74,39 @@ $(document).on('click','.testing',function(e)
             error: function(data) {
               alert('an error while sending request to server please try later!');
             }
-          });          
+          });
+   }
+   else
+   {
+     alert('Please select Reference for option to get the details.');
+   }
+});
+
+$(document).on('click','.testing_new',function(e)
+{  
+  alert('okkk');
+   var reference = 'test';   
+   var name = '1honey11';
+   var area = '1Banjarahills11';
+   if(reference != '')
+   {
+          $.ajax({
+           type: "POST",
+            /*url: "http://127.0.0.1:8001/e_hall/",*/
+            url: "http://127.0.0.1:8000/apiajaxcall/",
+            dataType: 'json',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                name : 'ok',
+                area : 'mp',
+            },
+            success: function(get_data) {              
+                alert(get_data);                
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                alert("Please report this error: "+errorThrown+xhr.status+xhr.responseText);
+            }
+          });
    }
    else
    {

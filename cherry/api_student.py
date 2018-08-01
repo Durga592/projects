@@ -15,7 +15,7 @@ print resp1.status_code
 print 'block 111111111111111111111111111..........'
 
 print 'block 222222222222222222222222222.........'
-resp2		=	requests.post(fun_url2)
+resp2		=	requests.get(fun_url2)
 print resp2
 print resp2.text
 print resp2.status_code
