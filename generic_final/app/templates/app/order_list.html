@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<p><a href="/ordercreation/">ORDER CREATION</a> <a href="/index/">HOME</a></p>
+	<table border="2">
+		<tr>
+			<td>ID</td>
+			<td>NAME</td>
+			<td>OPERATION 1</td>
+			<td>OPERATION 2</td>
+		</tr>
+		{% for order in object_list %}
+		<tr>
+			<td>{{ order.id }}</td>
+			<td>{{ order.name }}</td>
+			<td><a href="/orderupdate/{{ order.id }}/">UPDATE</a></td>
+			<td><a href="/orderdelete/{{ order.id }}/">DELETE</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

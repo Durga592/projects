@@ -26,3 +26,19 @@ class Studyhall(models.Model):
 	atrribute5	=	models.CharField(max_length=255, blank=True, null=True)
 	atrribute6	=	models.CharField(max_length=255, blank=True, null=True)
 	doc_name	=	models.FileField(upload_to='uploads/')
+
+class RequestTracker(models.Model):
+	ip 		=	models.CharField(max_length=255)
+	path 	=	models.CharField(max_length=255)
+	status 	=	models.IntegerField(blank=True, null=True)
+
+class Customer(models.Model):
+	name	=	models.CharField(max_length=255)
+
+class Product(models.Model):
+	name	=	models.CharField(max_length=255)
+
+class Order(models.Model):
+	product 	=	models.ManyToManyField(Product)
+	customer 	=	models.ForeignKey(Customer)
+	name		=	models.CharField(max_length=255)

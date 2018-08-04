@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from app.views import Customercreation, Productcreation, Ordercreation
+from app.views import Customercreation, Productcreation, Ordercreation, Orderoperationdetails
 from rest_framework.views import APIView
 
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^customer/$', Customercreation.as_view()),
     url(r'^product/$', Productcreation.as_view()),
     url(r'^order/$', Ordercreation.as_view()),
+    url(r'^order_details/$', Orderoperationdetails.as_view()),
 ]

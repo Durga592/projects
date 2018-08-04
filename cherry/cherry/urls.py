@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 ################### FOR UPLOADING ENDING HERE ####################
 from ice.views import get_dashboard, get_login, user_registration, get_logout, model_form_upload, get_uploadedfiles, get_studyhall, \
-api_call, api_ajax_call
+api_call, api_ajax_call, model_form_order
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^studyhall/', get_studyhall),
     url(r'^apicall/', api_call),
     url(r'^apiajaxcall/', api_ajax_call),
+    url(r'^order/form/$', model_form_order),
 ]
 ############################ FOR FILE UPLOADING ################################
 if settings.DEBUG:

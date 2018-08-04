@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from ice.models import Document, Studyhall
-from ice.forms import DocumentForm
+from ice.forms import DocumentForm, OrderForm
 ######## FOR USER PERMISSIONS #############################
 import os, datetime, time
 import requests
@@ -169,6 +169,32 @@ def get_studyhall(request):
 		hall_instance.save()
 		msg 	=	'Successfully hall created'
 	return render(request, "ice/studyhall.html", {"suc_msg":msg})
+
+####################### MODEL FORM ####################################################################
+@login_required(login_url = '/login/')
+def model_form_order(request):
+	print request.session['_auth_user_id']
+	if request.method == 'POST':
+		print request.FILES
+		print request.POST
+		user_instance	=	User.objects.get(pk = request.session['_auth_user_id'])
+		form = DocumentForm(request.POST, request.FILES)
+		form.created_id = user_instance
+		print 'begin---------------------'
+		print form
+		print 'end-----------------------'
+		#import pdb; pdb.set_trace()
+		if form.is_valid():
+			form.save()
+			return redirect(get_uploadedfiles)
+	else:
+		form = OrderForm()
+	return render(request, 'ice/model_form_order.html', {'form': form})
+@login_required(login_url = '/login/')
+def get_orderform(request):
+	documents = Document.objects.all()
+	return render(request, 'ice/home.html', { 'documents': documents })
+####################### MODEL FORM ####################################################################
 
 def api_call(request):
 	url 	=	'http://127.0.0.1:8001/e_hall/'

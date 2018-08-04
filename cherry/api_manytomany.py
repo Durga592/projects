@@ -5,7 +5,7 @@ base_url	=	"%s:%s/"%(host, port)
 
 customer_url	=	base_url+"customer/"
 
-resp			=	requests.post(customer_url, json={"name":"Gold"})
+resp			=	requests.post(customer_url, json={"name":"ddddd"})
 print resp
 print resp.text
 print resp.status_code
@@ -17,7 +17,7 @@ print resp1.text
 print resp1.status_code
 
 order_url		=	base_url+"order/"
-resp2			=	requests.post(order_url, json={"product":[3,4], "customer":"1", "name":"OTA"})
+resp2			=	requests.post(order_url, json={"product":[2,4], "customer":"1", "name":"OTA"})
 print resp2
 print resp2.text
 print resp2.status_code
