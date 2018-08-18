@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.trackers.RequestTrackerMiddleware',
 ]
 
 ROOT_URLCONF = 'manytomany.urls'
@@ -89,9 +90,9 @@ DATABASES = {
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
-    'pagedb': {
+    'new': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pagination',
+        'NAME': 'multi',
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
@@ -156,4 +157,63 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         )
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            #'format': '%(levelname)s %(message)s'
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {            
+            #'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            #'formatter': 'verbose',
+            'class': 'logging.FileHandler',
+            'filename': 'log.txt',
+        },
+    },
+    'loggers': {        
+        'app': {
+            'handlers': ['console'],
+            'level': 'DEBUG',            
+        },
+        'app': {
+            'handlers': ['console'],
+            'level': 'INFO',            
+        },        
+       'app': {
+            'handlers': ['console'],
+            'level': 'WARNING',            
+        },
+        'app': {
+            'handlers': ['console'],
+            'level': 'ERROR',            
+        },
+       # 'app': {
+       #     'handlers': ['console'],
+       #     'level': 'CRITICAL',            
+       # },
+    },
+}
+
+'''CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:8003',
+    }
+}'''
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
 }

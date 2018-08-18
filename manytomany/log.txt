@@ -1,0 +1,31 @@
+>>>>>>>>>>>>>>>started
+>>>>>>>>>>>>>>>>>.test
+=========================ok
+INFO >>>>>>>>>>>>>>>started
+ERROR >>>>>>>>>>>>>>>>>.test
+DEBUG =========================ok
+INFO 2018-08-07 09:52:43,056 views 1416 7952 >>>>>>>>>>>>>>>started
+ERROR 2018-08-07 09:52:43,056 views 1416 7952 >>>>>>>>>>>>>>>>>.test
+DEBUG 2018-08-07 09:52:43,058 views 1416 7952 =========================ok
+CRITICAL 2018-08-07 11:22:01,276 views 12124 10752 &&&&&&&&&&&&&&&&&&&&&&& CRITICAL
+CRITICAL 2018-08-07 11:22:55,582 views 4536 6048 &&&&&&&&&&&&&&&&&&&&&&& CRITICAL
+INFO 2018-08-07 11:24:56,614 views 4596 11692 >>>>>>>>>>>>>>>started
+ERROR 2018-08-07 11:24:56,615 views 4596 11692 >>>>>>>>>>>>>>>>>.test
+DEBUG 2018-08-07 11:24:56,615 views 4596 11692 =========================ok
+ERROR 2018-08-07 11:25:50,704 views 9844 11316 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:26:43,760 views 9844 8028 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:26:56,450 views 9844 272 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:27:35,752 views 11976 10924 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:27:48,095 views 11976 1760 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:51:15,651 views 11840 11780 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:52:27,671 views 11840 11300 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:52:52,543 views 7936 12168 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:53:57,193 views 10508 11272 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:54:12,240 views 10508 7732 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:56:02,911 views 11608 7288 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:57:18,132 views 5692 11908 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:57:51,650 views 1328 10596 >>>>>>>>>>>>>>>>>.test
+ERROR 2018-08-07 11:57:51,664 views 1328 10596 Got AttributeError when attempting to get a value for field `name` on serializer `DetailsOrderserializers`.
+The serializer field might be named incorrectly and not match any attribute or key on the `QuerySet` instance.
+Original exception text was: 'QuerySet' object has no attribute 'name'.
+ERROR 2018-08-07 11:58:44,128 views 11304 10208 >>>>>>>>>>>>>>>>>.test

@@ -13,6 +13,8 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework import permissions
 from rest_framework import authentication
 #from rest_framework.permissions import AllowAny
+import logging
+log = logging.getLogger(__name__)
 # Create your views here.
 
 ########### FOR OPTIONAL AUTHENTICATION ###############################
@@ -76,26 +78,32 @@ class Ordercreation(APIView):
 class Orderoperationdetails(APIView):
 	######### AT A TIME TWO AUTHENTICATION IS NOT POSSIBLE ##############################################
 	#authentication_classes 	=	(authentication.TokenAuthentication,)
-	#permission_classes 	=	(permissions.IsAuthenticated,)
+	#permission_classes 	=	(permissions.IsAuthenticated,)	
 	def get(self, request):
 		try:
+			log.info(">>>>>>>>>>>>>>>started")
 			get_data 		=	Order.objects.all()
-			print 'NORMAL BEGIN ............................'
-			print get_data
-			print 'NORMAL END...............................'
+			#print 'NORMAL BEGIN ............................'
+			#print get_data
+			#print 'NORMAL END...............................'
+			print log.error(">>>>>>>>>>>>>>>>>.test")
+			print log.debug('=========================ok')
+			#print log.warning("<<<<<<<<<<<<<<<<<< WARNING")
+			#print log.critical("&&&&&&&&&&&&&&&&&&&&&&& CRITICAL")
 			serializer	=	DetailsOrderserializers(Order.objects.all(), many=True)
-			print 'query begin..........................................'
-			print connection.queries
-			print 'query ending..........................................'
+			#print 'query begin..........................................'
+			#print connection.queries
+			#print 'query ending..........................................'
 			#json 			=	JSONRenderer().render(order_details.data)
-			print 'SERIALIZERS BEGIN .................................'
-			print serializer
-			print 'NO.................................................'
+			#print 'SERIALIZERS BEGIN .................................'
+			#print serializer
+			#print 'NO.................................................'
 			#print json
 			send_data 	=	serializer.data
-			print send_data
-			print 'SERIALIZERS END....................................'
+			#print send_data
+			#print 'SERIALIZERS END....................................'
 
 			return Response(send_data, status.HTTP_200_OK)			
 		except Exception as err:
+			log.error(err.message)
 			return Response(err.message, status.HTTP_500_INTERNAL_SERVER_ERROR)

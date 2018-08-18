@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',    
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ DATABASES = {
     #},
     'default':{
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'moredb2',
+        'NAME': 'moredb5',
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
@@ -167,5 +168,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#DATABASE_ROUTERS = ['auth.routers.AuthRouter', 'app.routers.PrimaryReplicaRouter']
+DATABASE_ROUTERS = ['router.routers1.AuthRouter', 'router.routers.PrimaryReplicaRouter']
 #DATABASE_ROUTERS = ['auth.routers.AuthRouter',]
